@@ -48,10 +48,10 @@
             </div>
 
             <div class="form-group">
-                <label for="barcode">Barcode</label>
-                <input type="text" name="barcode" class="form-control @error('barcode') is-invalid @enderror"
-                    id="barcode" placeholder="barcode" value="{{ old('barcode') }}">
-                @error('barcode')
+                <label for="barcode">Buying Price</label>
+                <input type="text" name="buyingPrice" class="form-control @error('buyingPrice') is-invalid @enderror"
+                    id="buyingPrice" placeholder="buyingPrice" value="{{ old('buyingPrice') }}">
+                @error('buyingPrice')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -59,9 +59,9 @@
             </div>
 
             <div class="form-group">
-                <label for="price">Price</label>
+                <label for="price">Sell Price</label>
                 <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" id="price"
-                    placeholder="price" value="{{ old('price') }}">
+                    placeholder="sell price" value="{{ old('price') }}">
                 @error('price')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

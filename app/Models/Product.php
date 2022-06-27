@@ -10,7 +10,7 @@ class Product extends Model
         'name',
         'description',
         'image',
-        'barcode',
+        'buyingPrice',
         'price',
         'quantity',
         'status'

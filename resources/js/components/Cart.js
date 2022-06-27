@@ -11,7 +11,7 @@ class Cart extends Component {
             cart: [],
             products: [],
             customers: [],
-            barcode: "",
+           barcode: "",
             search: "",
             customer_id: ""
         };
@@ -124,7 +124,7 @@ class Cart extends Component {
         }
     }
 
-    addProductToCart(barcode) {
+   addProductToCart(barcode) {
         let product = this.state.products.find(p => p.barcode === barcode);
         if (!!product) {
             // if product is already in cart
@@ -194,22 +194,12 @@ class Cart extends Component {
 
     }
     render() {
-        const { cart, products, customers, barcode } = this.state;
+        const { cart, products, customers } = this.state;
         return (
             <div className="row">
                 <div className="col-md-6 col-lg-4">
                     <div className="row mb-2">
-                        <div className="col">
-                            <form onSubmit={this.handleScanBarcode}>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Scan Barcode..."
-                                    value={barcode}
-                                    onChange={this.handleOnChangeBarcode}
-                                />
-                            </form>
-                        </div>
+                        
                         <div className="col">
                             <select
                                 className="form-control"
