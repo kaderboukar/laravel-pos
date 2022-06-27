@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->decimal('buyingPrice', 8, 2);
-            $table->decimal('price', 8, 2);
+            $table->string('barcode')->unique();
+            $table->decimal('sellprice', 8, 2);
+            $table->decimal('buyingprice', 8, 2);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

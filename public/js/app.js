@@ -2332,7 +2332,7 @@ var Cart = /*#__PURE__*/function (_Component) {
     key: "getTotal",
     value: function getTotal(cart) {
       var total = cart.map(function (c) {
-        return c.pivot.quantity * c.price;
+        return c.pivot.quantity * c.sellprice;
       });
       return (0,lodash__WEBPACK_IMPORTED_MODULE_5__.sum)(total).toFixed(2);
     }
@@ -2478,14 +2478,27 @@ var Cart = /*#__PURE__*/function (_Component) {
       var _this$state = this.state,
           cart = _this$state.cart,
           products = _this$state.products,
-          customers = _this$state.customers;
+          customers = _this$state.customers,
+          barcode = _this$state.barcode;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "col-md-6 col-lg-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: "row mb-2",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "col",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
+                onSubmit: this.handleScanBarcode,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                  type: "text",
+                  className: "form-control",
+                  placeholder: "Scan Barcode...",
+                  value: barcode,
+                  onChange: this.handleOnChangeBarcode
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
               className: "col",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
                 className: "form-control",
@@ -2500,7 +2513,7 @@ var Cart = /*#__PURE__*/function (_Component) {
                   }, cus.id);
                 })]
               })
-            })
+            })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
             className: "user-cart",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -2542,7 +2555,7 @@ var Cart = /*#__PURE__*/function (_Component) {
                         })]
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
                         className: "text-right",
-                        children: [window.APP.currency_symbol, " ", (c.price * c.pivot.quantity).toFixed(2)]
+                        children: [(c.sellprice * c.pivot.quantity).toFixed(2), " ", window.APP.currency_symbol]
                       })]
                     }, c.id);
                   })
@@ -2556,7 +2569,7 @@ var Cart = /*#__PURE__*/function (_Component) {
               children: "Total:"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
               className: "col text-right",
-              children: [window.APP.currency_symbol, " ", this.getTotal(cart)]
+              children: [this.getTotal(cart), " ", window.APP.currency_symbol]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: "row",

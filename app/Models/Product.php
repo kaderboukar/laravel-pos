@@ -10,8 +10,9 @@ class Product extends Model
         'name',
         'description',
         'image',
-        'buyingPrice',
-        'price',
+        'barcode',
+        'sellprice',
+        'buyingprice',
         'quantity',
         'status'
     ];

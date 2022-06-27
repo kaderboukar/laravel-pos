@@ -5,105 +5,116 @@
 
 @section('content')
 
-<div class="card">
-    <div class="card-body">
+    <div class="card">
+        <div class="card-body">
 
-        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-                    placeholder="Name" value="{{ old('name') }}">
-                @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-
-
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-                    id="description" placeholder="description">{{ old('description') }}</textarea>
-                @error('description')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="image">Image</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="image" id="image">
-                    <label class="custom-file-label" for="image">Choose file</label>
+                <div class="form-group">
+                    <label for="barcode">Barcode</label>
+                    <input type="text" name="barcode" class="form-control @error('barcode') is-invalid @enderror"
+                        id="barcode" placeholder="barcode" value="{{ old('barcode') }}">
+                    @error('barcode')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-                @error('image')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
 
-            <div class="form-group">
-                <label for="barcode">Buying Price</label>
-                <input type="text" name="buyingPrice" class="form-control @error('buyingPrice') is-invalid @enderror"
-                    id="buyingPrice" placeholder="buyingPrice" value="{{ old('buyingPrice') }}">
-                @error('buyingPrice')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                        id="name" placeholder="Name" value="{{ old('name') }}">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-            <div class="form-group">
-                <label for="price">Sell Price</label>
-                <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" id="price"
-                    placeholder="sell price" value="{{ old('price') }}">
-                @error('price')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
 
-            <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror"
-                    id="quantity" placeholder="Quantity" value="{{ old('quantity', 1) }}">
-                @error('quantity')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description"
+                        placeholder="description">{{ old('description') }}</textarea>
+                    @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
-                    <option value="1" {{ old('status') === 1 ? 'selected' : ''}}>Active</option>
-                    <option value="0" {{ old('status') === 0 ? 'selected' : ''}}>Inactive</option>
-                </select>
-                @error('status')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image" id="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
+                    </div>
+                    @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-            <button class="btn btn-primary" type="submit">Create</button>
-        </form>
+                <div class="form-group">
+                    <label for="buyingprice">Buying Price</label>
+                    <input type="text" name="buyingprice" class="form-control @error('buyingprice') is-invalid @enderror"
+                        id="buyingprice" placeholder="buying price" value="{{ old('buyingprice') }}">
+                    @error('buyingprice')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="sellprice">Sell Price</label>
+                    <input type="text" name="sellprice" class="form-control @error('sellprice') is-invalid @enderror"
+                        id="sellprice" placeholder="sell price" value="{{ old('sellprice') }}">
+                    @error('sellprice')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror"
+                        id="quantity" placeholder="Quantity" value="{{ old('quantity', 1) }}">
+                    @error('quantity')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+                        <option value="1" {{ old('status') === 1 ? 'selected' : '' }}>Active</option>
+                        <option value="0" {{ old('status') === 0 ? 'selected' : '' }}>Inactive</option>
+                    </select>
+                    @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <button class="btn btn-primary" type="submit">Create</button>
+            </form>
+        </div>
     </div>
-</div>
 @endsection
 
 @section('js')
-<script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-<script>
-    $(document).ready(function () {
-        bsCustomFileInput.init();
-    });
-</script>
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            bsCustomFileInput.init();
+        });
+    </script>
 @endsection

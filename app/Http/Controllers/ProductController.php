@@ -57,8 +57,9 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $image_path,
-            'buyingPrice' => $request->buyingPrice,
-            'price' => $request->price,
+            'barcode' => $request->barcode,
+            'sellprice' => $request->sellprice,
+            'buyingprice' => $request->buyingprice,
             'quantity' => $request->quantity,
             'status' => $request->status
         ]);
@@ -102,8 +103,9 @@ class ProductController extends Controller
     {
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->buyingPrice = $request->buyingPrice;
-        $product->price = $request->price;
+        $product->barcode = $request->barcode;
+        $product->sellprice = $request->sellprice;
+        $product->buyingprice = $request->buyingprice;
         $product->quantity = $request->quantity;
         $product->status = $request->status;
 

@@ -11,7 +11,7 @@ class Cart extends Component {
             cart: [],
             products: [],
             customers: [],
-           barcode: "",
+            barcode: "",
             search: "",
             customer_id: ""
         };
@@ -98,7 +98,7 @@ class Cart extends Component {
     }
 
     getTotal(cart) {
-        const total = cart.map(c => c.pivot.quantity * c.price);
+        const total = cart.map(c => c.pivot.quantity * c.sellprice);
         return sum(total).toFixed(2);
     }
     handleClickDelete(product_id) {
@@ -124,7 +124,7 @@ class Cart extends Component {
         }
     }
 
-   addProductToCart(barcode) {
+    addProductToCart(barcode) {
         let product = this.state.products.find(p => p.barcode === barcode);
         if (!!product) {
             // if product is already in cart
@@ -194,12 +194,22 @@ class Cart extends Component {
 
     }
     render() {
-        const { cart, products, customers } = this.state;
+        const { cart, products, customers, barcode } = this.state;
         return (
             <div className="row">
                 <div className="col-md-6 col-lg-4">
                     <div className="row mb-2">
-                        
+                        <div className="col">
+                            <form onSubmit={this.handleScanBarcode}>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Scan Barcode..."
+                                    value={barcode}
+                                    onChange={this.handleOnChangeBarcode}
+                                />
+                            </form>
+                        </div>
                         <div className="col">
                             <select
                                 className="form-control"
@@ -253,10 +263,10 @@ class Cart extends Component {
                                                 </button>
                                             </td>
                                             <td className="text-right">
-                                                {window.APP.currency_symbol}{" "}
+                                                
                                                 {(
-                                                    c.price * c.pivot.quantity
-                                                ).toFixed(2)}
+                                                    c.sellprice * c.pivot.quantity
+                                                ).toFixed(2)}{" "}{window.APP.currency_symbol}
                                             </td>
                                         </tr>
                                     ))}
@@ -268,7 +278,7 @@ class Cart extends Component {
                     <div className="row">
                         <div className="col">Total:</div>
                         <div className="col text-right">
-                            {window.APP.currency_symbol} {this.getTotal(cart)}
+                             {this.getTotal(cart)} {window.APP.currency_symbol}
                         </div>
                     </div>
                     <div className="row">
