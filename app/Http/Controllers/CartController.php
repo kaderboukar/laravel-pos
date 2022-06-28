@@ -19,6 +19,7 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
+        //return $request->all();
         $request->validate([
             'barcode' => 'required|exists:products,barcode',
         ]);
