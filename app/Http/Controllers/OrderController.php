@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderStoreRequest;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
@@ -39,6 +41,7 @@ class OrderController extends Controller
         foreach ($cart as $item) {
             $order->items()->create([
                 'sellprice' => $item->sellprice * $item->pivot->quantity,
+                'buyingprice' => $item->buyingprice * $item->pivot->quantity,
                 'quantity' => $item->pivot->quantity,
                 'product_id' => $item->id,
             ]);
@@ -51,5 +54,16 @@ class OrderController extends Controller
             'user_id' => $request->user()->id,
         ]);
         return 'success';
+    }
+
+    public function printOrder()
+    {
+        $lastID = OrderItem::max('order_id');
+        $order = Order::where('id', $lastID)->with(['items', 'payments', 'customer'])->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $order
+        ], Response::HTTP_OK);
     }
 }

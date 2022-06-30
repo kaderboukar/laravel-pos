@@ -41,6 +41,13 @@ class Order extends Model
         })->sum();
     }
 
+    public function totalbuying()
+    {
+        return $this->items->map(function ($i){
+            return $i->buyingprice;
+        })->sum();
+    }
+
     public function formattedTotal()
     {
         return number_format($this->total(), 2);

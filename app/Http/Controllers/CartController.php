@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -9,12 +11,17 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
+        
+        $lastID = OrderItem::max('order_id');
+        $order = Order::where('id', $lastID)->get();
+        $order_receipt = OrderItem::where('order_id', $lastID)->get();
+       // dd($order_receipt);
         if ($request->wantsJson()) {
             return response(
                 $request->user()->cart()->get()
             );
         }
-        return view('cart.index');
+        return view('cart.index', ['order_receipt' => $order_receipt, 'order' => $order]);
     }
 
     public function store(Request $request)
@@ -29,16 +36,16 @@ class CartController extends Controller
         $cart = $request->user()->cart()->where('barcode', $barcode)->first();
         if ($cart) {
             // check product quantity
-            if($product->quantity <= $cart->pivot->quantity) {
+            if ($product->quantity <= $cart->pivot->quantity) {
                 return response([
-                    'message' => 'Product available only: '. $product->quantity,
+                    'message' => 'Product available only: ' . $product->quantity,
                 ], 400);
             }
             // update only quantity
             $cart->pivot->quantity = $cart->pivot->quantity + 1;
             $cart->pivot->save();
         } else {
-            if($product->quantity < 1) {
+            if ($product->quantity < 1) {
                 return response([
                     'message' => 'Product out of stock',
                 ], 400);

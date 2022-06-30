@@ -4,21 +4,23 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { sum } from "lodash";
 import PrintRecu from "./PrintRecu";
+import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
 
-class Cart extends Component {
+class Cart extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             cart: [],
+            orders: [],
             products: [],
             customers: [],
             barcode: "",
             search: "",
             customer_id: "",
-            printRecuFunction:[],
+            totalprice: 0,
             visible: false,
         };
-        
+
         this.loadCart = this.loadCart.bind(this);
         this.handleOnChangeBarcode = this.handleOnChangeBarcode.bind(this);
         this.handleScanBarcode = this.handleScanBarcode.bind(this);
@@ -32,10 +34,10 @@ class Cart extends Component {
         this.handleClickSubmit = this.handleClickSubmit.bind(this);
     }
 
-    changeVisible(){
-        this.setState({visible : !visible})
+    changeVisible() {
+        this.setState({ visible: !visible })
     }
- 
+
     componentDidMount() {
         // load user cart
         this.loadCart();
@@ -60,7 +62,6 @@ class Cart extends Component {
 
     handleOnChangeBarcode(event) {
         const barcode = event.target.value;
-        console.log(barcode);
         this.setState({ barcode });
     }
 
@@ -164,8 +165,7 @@ class Cart extends Component {
             axios
                 .post("/admin/cart", { barcode })
                 .then(res => {
-                    // this.loadCart();
-                    console.log(res);
+                    this.loadCart();
                 })
                 .catch(err => {
                     Swal.fire("Error!", err.response.data.message, "error");
@@ -176,7 +176,7 @@ class Cart extends Component {
     setCustomerId(event) {
         this.setState({ customer_id: event.target.value });
     }
-   
+
     handleClickSubmit() {
         Swal.fire({
             title: 'Received Amount',
@@ -188,7 +188,9 @@ class Cart extends Component {
             preConfirm: (amount) => {
                 return axios.post('/admin/orders', { customer_id: this.state.customer_id, amount }).then(res => {
                     this.loadCart();
-                    this.setState({visible : true})
+                    this.setState({ visible: true })
+                    this.setState({ orders: this.state.cart })
+                    this.setState({ totalprice: this.getTotal(this.state.cart) })
                     return res.data;
                 }).catch(err => {
                     Swal.showValidationMessage(err.response.data.message)
@@ -202,9 +204,10 @@ class Cart extends Component {
         })
 
     }
+
     render() {
-        const { cart, products, customers, barcode } = this.state;
-        
+        const { cart, products, customers, barcode, visible, orders, totalprice } = this.state;
+
         return (
             <div className="row">
                 <div className="col-md-6 col-lg-4">
@@ -273,7 +276,7 @@ class Cart extends Component {
                                                 </button>
                                             </td>
                                             <td className="text-right">
-                                                
+
                                                 {(
                                                     c.sellprice * c.pivot.quantity
                                                 ).toFixed(2)}{" "}{window.APP.currency_symbol}
@@ -288,7 +291,7 @@ class Cart extends Component {
                     <div className="row">
                         <div className="col">Total:</div>
                         <div className="col text-right">
-                             {this.getTotal(cart)} {window.APP.currency_symbol}
+                            {this.getTotal(cart)} {window.APP.currency_symbol}
                         </div>
                     </div>
                     <div className="row">
@@ -337,7 +340,7 @@ class Cart extends Component {
                         ))}
                     </div>
                 </div>
-                <PrintRecu action={this.state.visible} data={this.state.cart}/>
+                <PrintRecu  action={visible} dataOrders={orders} data={totalprice} />
 
             </div>
         );

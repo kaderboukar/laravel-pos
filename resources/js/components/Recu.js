@@ -1,31 +1,13 @@
 import React from 'react';
-import Modal from 'react-modal';
 import './Styles.css';
 import { v4 as uuidv4 } from 'uuid';
 import logo from '../../../public/images/logo.png';
-import { useReactToPrint } from 'react-to-print';
-
-
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement('#cart');
 
 export default function PrintRecu(props) {
-  const { data, action, dataOrders } = props
+    const {  } = props
 
-  const componentRef = React.useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
-  return (
-    <div>
-      <Modal
-        isOpen={!!action}
-        ariaHideApp={false}
-        contentLabel="Selected Option"
-        appElement={document.getElementById('app')}
-      >
-        <div id="invoice-POS"  ref={componentRef}>
+    return (
+        <div id="invoice-POS">
           <div id="printed_content">
             <center id="logo">
               <img src={logo} className="logo" />
@@ -33,7 +15,7 @@ export default function PrintRecu(props) {
             </center>
             <div className="mid">
               <h2>Contact Us</h2>
-              <p>Address : GAYA  NOUVEAU  CARRE   -  Email : linamarket2022@gmail  -  phone : +227 96 37 37 61 / +212 608 355 454
+              <p>Address : GAYA NOUVEAU CARRE - Email : linamarket2022@gmail - phone : +227 96 37 37 61 / +212 608 355 454
               </p>
             </div>
           </div>
@@ -78,11 +60,6 @@ export default function PrintRecu(props) {
               <p className="legal "> <strong>** Thank you for visiting **</strong></p>
             </div>
           </div>
-        <button style={{ position: 'absolute', bottom: 10}} onClick={handlePrint} className='btn btn-primary impression_invisible'>Print Me</button>
         </div >
-      </Modal >
-       
-    </div >
-
-  );
+    );
 }
