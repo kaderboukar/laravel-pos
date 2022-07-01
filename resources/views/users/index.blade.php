@@ -36,10 +36,16 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('users.edit', $user) }}" class="btn btn-primary"><i
-                                        class="fas fa-edit"></i></a>
-                                <button class="btn btn-danger btn-delete" data-url="{{ route('users.destroy', $user) }}"><i
-                                        class="fas fa-trash"></i></button>
+                                @if (auth()->user()->id != $user->id)
+                                    <a href="{{ route('users.edit', $user) }}" class="btn btn-primary"><i
+                                            class="fas fa-edit"></i></a>
+                                    <button class="btn btn-danger btn-delete"
+                                        data-url="{{ route('users.destroy', $user) }}"><i
+                                            class="fas fa-trash"></i></button>
+                                @else
+                                    <p><span class="right badge badge-success">You have been logged in</span> </p>
+                                @endif
+
                             </td>
                         </tr>
                     @endforeach
