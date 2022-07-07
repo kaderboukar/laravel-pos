@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Customer;
+use App\Models\Diver;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,6 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $orders = Order::with(['items', 'payments'])->get();
+        $divers = Diver::all();
         $customers_count = Customer::count();
 
         return view('home', [
@@ -48,6 +50,8 @@ class HomeController extends Controller
             'buying_today' => $orders->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')->map(function ($i) {
                 return $i->totalbuying();
             })->sum(),
+            'diver' => $divers->sum("price"),
+            'diver_today' => $divers->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')->sum("price"),
             'customers_count' => $customers_count
         ]);
     }

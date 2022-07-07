@@ -37,6 +37,12 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
+                        <a href="{{ route('divers.index') }}" class="nav-link {{ activeSegment('divers') }}">
+                            <i class="nav-icon fas fa-th-large"></i>
+                            <p>Miscellaneous Expense</p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
                         <a href="{{ route('cart.index') }}" class="nav-link {{ activeSegment('cart') }}">
                             <i class="nav-icon fas fa-cart-plus"></i>
                             <p>Open POS</p>
